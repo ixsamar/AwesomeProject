@@ -12,7 +12,7 @@ const App = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContainer}
       >
-        <ImagesDemo />
+        <Home />
       </ScrollView>
     </SafeAreaView>
   );
