@@ -4,6 +4,8 @@ import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
 import { COLORS } from './src/utills/colors';
 import ImagesDemo from './src/screens/ImagesDemo';
+import StylesExampleFull from './src/screens/StylesExampleFull';
+import ScrollViewExampleFull from './src/screens/ScrollViewExampleFull';
 
 const App = () => {
   return (
@@ -12,7 +14,10 @@ const App = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContainer}
       >
-        <Home />
+        {/* <Home /> */}
+        {/* <StylesExampleFull /> */}
+
+        <ScrollViewExampleFull />
       </ScrollView>
     </SafeAreaView>
   );
