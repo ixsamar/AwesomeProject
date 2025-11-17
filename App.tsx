@@ -1,33 +1,40 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import Home from './src/screens/Home';
-import Profile from './src/screens/Profile';
-import { COLORS } from './src/utills/colors';
-import ImagesDemo from './src/screens/ImagesDemo';
-import StylesExampleFull from './src/screens/StylesExampleFull';
-import ScrollViewExampleFull from './src/screens/ScrollViewExampleFull';
+import { View, StyleSheet, StatusBar, SafeAreaView } from 'react-native';
+
+
+
+import AlertExample from './src/screens/CoreComponents/AlertExample';
+import TextInputButtonExample from './src/screens/CoreComponents/TextInputButtonExample';
+import StatusBarExample from './src/screens/CoreComponents/StatusBarExample';
+
 
 const App = () => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollViewContainer}
-      >
-        {/* <Home /> */}
-        {/* <StylesExampleFull /> */}
+    <View style={styles.appContainer}>
 
-        <ScrollViewExampleFull />
-      </ScrollView>
-    </SafeAreaView>
+
+
+      <SafeAreaView style={styles.safeArea}>
+        {/* Core components */}
+        {/* <StatusBarExample /> */}
+
+        <TextInputButtonExample />
+        {/* <AlertExample /> */}
+      </SafeAreaView>
+
+    </View>
   );
 };
 
 export default App;
 
 const styles = StyleSheet.create({
-  scrollViewContainer: {
-    // backgroundColor: COLORS.LightBlue,
+  appContainer: {
     flex: 1,
+    backgroundColor: '#fff',
+  },
+  safeArea: {
+    flex: 1,
+    paddingHorizontal: 10,
   },
 });
