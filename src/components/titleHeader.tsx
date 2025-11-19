@@ -4,20 +4,21 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const TitleHeader = ({ title }: { title: string, }) => {
-
-
-
+export const TitleHeader = ({ title }: { title: string, }) => {
     return (
-        <Text
-            style={[
-                styles.title,
-                { color: "#000" },
-            ]}
-        >
-            {title}
-        </Text>
+        <>
+            <SafeAreaView >
+                <Text
+                    style={[
+                        styles.title,
+                        { color: "#000" },
+                    ]}
+                >
+                    {title}
+                </Text>
+            </SafeAreaView ></>
     );
 };
 

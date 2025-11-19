@@ -1,26 +1,46 @@
 import React from 'react';
-import { View, StyleSheet, StatusBar, SafeAreaView } from 'react-native';
+import { View, StyleSheet, StatusBar, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-
-
-import AlertExample from './src/screens/CoreComponents/AlertExample';
-import TextInputButtonExample from './src/screens/CoreComponents/TextInputButtonExample';
+// Screens
 import StatusBarExample from './src/screens/CoreComponents/StatusBarExample';
+import TextInputButtonExample from './src/screens/CoreComponents/TextInputButtonExample';
+import AlertExample from './src/screens/CoreComponents/AlertExample';
 
+import UseStateExample from './src/screens/Logics/UseStateExample';
+import UseEffectExample from './src/screens/Logics/UseEffectExample';
+import LifecycleExample from './src/screens/Logics/LifecycleExample';
+import PropsExample from './src/screens/Logics/PropsExample';
+import UserFormExample from './src/screens/Logics/UserFormExample';
 
 const App = () => {
   return (
     <View style={styles.appContainer}>
 
+      {/* iOS Safe Area */}
 
 
-      <SafeAreaView style={styles.safeArea}>
-        {/* Core components */}
-        {/* <StatusBarExample /> */}
+      {/* StatusBar must be inside SafeAreaView on iOS */}
+      {/* <StatusBar barStyle="dark-content" backgroundColor="#fff" /> */}
 
-        <TextInputButtonExample />
-        {/* <AlertExample /> */}
-      </SafeAreaView>
+      {/* Scroll everything so iOS doesn't cut content */}
+      {/* <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      > */}
+      {/* Core Components */}
+      {/* <StatusBarExample />
+          <TextInputButtonExample />
+          <AlertExample /> */}
+
+      {/* Hooks & Logic */}
+      <UseStateExample />
+      {/* <UseEffectExample />
+          <LifecycleExample />
+          <PropsExample />
+          <UserFormExample /> */}
+      {/* </ScrollView> */}
+
 
     </View>
   );
@@ -35,6 +55,9 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+  },
+  scrollContent: {
     paddingHorizontal: 10,
+    paddingBottom: 50,
   },
 });
