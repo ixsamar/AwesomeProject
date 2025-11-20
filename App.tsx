@@ -16,18 +16,9 @@ import UserFormExample from './src/screens/Logics/UserFormExample';
 const App = () => {
   return (
     <View style={styles.appContainer}>
-
-      {/* iOS Safe Area */}
-
-
       {/* StatusBar must be inside SafeAreaView on iOS */}
       {/* <StatusBar barStyle="dark-content" backgroundColor="#fff" /> */}
 
-      {/* Scroll everything so iOS doesn't cut content */}
-      {/* <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      > */}
       {/* Core Components */}
       {/* <StatusBarExample />
           <TextInputButtonExample />
@@ -35,11 +26,12 @@ const App = () => {
 
       {/* Hooks & Logic */}
       <UseStateExample />
-      {/* <UseEffectExample />
-          <LifecycleExample />
-          <PropsExample />
-          <UserFormExample /> */}
-      {/* </ScrollView> */}
+      <UseEffectExample />
+      <LifecycleExample />
+      <PropsExample />
+      <UserFormExample />
+
+
 
 
     </View>

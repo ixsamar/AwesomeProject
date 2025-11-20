@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export const TitleHeader = ({ title }: { title: string, }) => {
     return (
         <>
-            <SafeAreaView >
+            <SafeAreaView style={{ marginTop: 70 }}>
                 <Text
                     style={[
                         styles.title,

@@ -1,37 +1,66 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Button } from "react-native";
+import TitleHeader from "../../components/TitleHeader";
 
 const LifecycleExample = () => {
-    const [value, setValue] = useState(0);
+    const [count, setCount] = useState(0);
 
+    // 1️⃣ Mounting
     useEffect(() => {
-        console.log("Component Mounted");
-        return () => console.log("Component Unmounted");
+        console.log("🟢 Mounted!");
+
+        return () => {
+            // 3️⃣ Unmounting
+            console.log("🔴 Unmounted!");
+        };
     }, []);
 
+    // 2️⃣ Updating
     useEffect(() => {
-        console.log("Value Updated:", value);
-    }, [value]);
+        console.log("🔵 Updated! Count:", count);
+    }, [count]);
+
+    const throwError = () => {
+        throw new Error("Arrow Component Error!");
+    };
 
     return (
-        <View>
-            <Text style={{ fontSize: 22 }}>Value: {value}</Text>
-            <Button title="Increase" onPress={() => setValue(value + 1)} />
+        <View style={{ padding: 20 }}>
+            <TitleHeader title="LifecycleExample" />
+            <Text style={{ fontSize: 22 }}>Count: {count}</Text>
+
+            <Button title="Increase" onPress={() => setCount(count + 1)} />
+
+            <View style={{ marginTop: 10 }}>
+                <Button title="Trigger Error" color="red" onPress={throwError} />
+            </View>
         </View>
     );
 };
 
 export default LifecycleExample;
 
-/* --------------------- Component Lifecycle (10 Lines) ----------------------
-1️⃣ useEffect helps us recreate lifecycle methods.
-2️⃣ The first useEffect with [] runs once → componentDidMount.
-3️⃣ The return function inside it runs when leaving → componentWillUnmount.
-4️⃣ The second useEffect runs whenever value changes → componentDidUpdate.
-5️⃣ This creates a full lifecycle flow inside functional components.
-6️⃣ Helps track component creation and cleanup.
-7️⃣ Useful for listeners, subscriptions, timers, and cleanup.
-8️⃣ Keeps performance stable by removing unused tasks.
-9️⃣ React replaces old lifecycle methods with hooks.
-🔟 Makes functional components powerful like class components.
--------------------------------------------------------------------------- */
+
+
+/* -------- SIMPLE LIFECYCLE NOTES (Easy to Understand) ---------
+
+#1 MOUNTING
+- Happens when component appears on screen.
+- useEffect with [] runs once.
+- Good for loading data or starting timers.
+
+#2 UPDATING
+- Happens when state or props change.
+- useEffect with [value] runs every time "value" updates.
+
+#3 UNMOUNTING
+- Happens when component is removed.
+- Cleanup function inside useEffect() runs here.
+- Good for stopping timers or removing listeners.
+
+#4 ERROR HANDLING
+- If a component crashes while rendering, we can catch it.
+- Here, ChildComponent throws an error when value = 5.
+- The error is caught and a friendly message is shown.
+
+--------------------------------------------------------------- */
