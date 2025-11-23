@@ -3,123 +3,96 @@ import {
     View,
     Text,
     TextInput,
-    TouchableOpacity,
     Button,
     FlatList,
     StyleSheet,
     Alert,
 } from "react-native";
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
-interface User {
+interface Student {
     id: string;
     name: string;
-    age: string;
-    city: string;
+    roll: string;
 }
 
-const UserFormExample: React.FC = () => {
+const SimpleUserForm: React.FC = () => {
     const [name, setName] = useState("");
-    const [age, setAge] = useState("");
-    const [city, setCity] = useState("");
+    const [roll, setRoll] = useState("");
+    const [list, setList] = useState<Student[]>([]);
 
-    const [usersList, setUsersList] = useState<User[]>([]);
-
-    // Submit user
-    const handleSubmit = () => {
-        if (!name || !age || !city) {
-            Alert.alert("Please fill all details!");
+    // Save
+    const handleSave = () => {
+        if (!name.trim()) {
+            Alert.alert("Please enter Name");
+            return;
+        } else if (isNaN(Number(roll))) {
+            Alert.alert("Roll Number must be numeric");
             return;
         }
 
-        const newUser: User = {
+        const newItem: Student = {
             id: Date.now().toString(),
             name,
-            age,
-            city,
+            roll,
         };
 
-        setUsersList([...usersList, newUser]);
+        setList([...list, newItem]);
 
-        // Clear inputs
+        // Clear form
         setName("");
-        setAge("");
-        setCity("");
+        setRoll("");
     };
 
-    // Clear form
-    const handleClear = () => {
+    // Clear full form
+    const handleClearForm = () => {
         setName("");
-        setAge("");
-        setCity("");
+        setRoll("");
     };
-
-    // Reusable Clear X button
-    const ClearButton = ({ onPress }: { onPress: () => void }) => (
-        <TouchableOpacity onPress={onPress} style={styles.clearX}>
-            <Text style={{ fontSize: wp("5%") }}>✖</Text>
-        </TouchableOpacity>
-    );
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>User Form</Text>
+            <Text style={styles.title}>Student Form</Text>
 
             {/* Name */}
-            <View style={styles.inputRow}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter Name"
-                    value={name}
-                    onChangeText={setName}
-                />
-                {name.length > 0 && <ClearButton onPress={() => setName("")} />}
-            </View>
+            <TextInput
+                style={styles.input}
+                placeholder="Enter Name"
+                value={name}
+                onChangeText={setName}
+            />
 
-            {/* Age */}
-            <View style={styles.inputRow}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter Age"
-                    keyboardType="numeric"
-                    value={age}
-                    onChangeText={setAge}
-                />
-                {age.length > 0 && <ClearButton onPress={() => setAge("")} />}
-            </View>
-
-            {/* City */}
-            <View style={styles.inputRow}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter City"
-                    value={city}
-                    onChangeText={setCity}
-                />
-                {city.length > 0 && <ClearButton onPress={() => setCity("")} />}
-            </View>
+            {/* Roll Number */}
+            <TextInput
+                style={styles.input}
+                placeholder="Enter Roll Number"
+                keyboardType="numeric"
+                value={roll}
+                onChangeText={setRoll}
+            />
 
             {/* Buttons */}
             <View style={styles.buttonWrapper}>
-                <Button title="Submit" onPress={handleSubmit} color="#4CAF50" />
+                <Button title="Save" onPress={handleSave} color="#4CAF50" />
             </View>
 
             <View style={styles.buttonWrapper}>
-                <Button title="Clear Form" onPress={handleClear} color="#D32F2F" />
+                <Button title="Clear Form" onPress={handleClearForm} color="#D32F2F" />
             </View>
 
-            {/* Table Title */}
-            <Text style={styles.tableTitle}>Users List</Text>
-
             {/* Table */}
+            <Text style={styles.tableTitle}>Saved Records</Text>
+
             <FlatList
-                data={usersList}
+                data={list}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <View style={styles.tableRow}>
                         <Text style={styles.tableCell}>{item.name}</Text>
-                        <Text style={styles.tableCell}>{item.age}</Text>
-                        <Text style={styles.tableCell}>{item.city}</Text>
+                        <Text style={styles.tableCell}>{item.roll}</Text>
                     </View>
                 )}
             />
@@ -127,7 +100,7 @@ const UserFormExample: React.FC = () => {
     );
 };
 
-export default UserFormExample;
+export default SimpleUserForm;
 
 const styles = StyleSheet.create({
     container: {
@@ -140,15 +113,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginBottom: hp("3%"),
     },
-
-    /** Input with X Button */
-    inputRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginBottom: hp("1.5%"),
-    },
     input: {
-        flex: 1,
         height: hp("6%"),
         borderWidth: 1,
         borderColor: "#888",
@@ -156,19 +121,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: wp("3%"),
         backgroundColor: "#fff",
         fontSize: wp("4%"),
+        marginBottom: hp("1.5%"),
     },
-    clearX: {
-        paddingHorizontal: wp("2%"),
-    },
-
-    /** Buttons */
     buttonWrapper: {
         width: wp("60%"),
         alignSelf: "center",
         marginVertical: hp("1%"),
     },
-
-    /** Table */
     tableTitle: {
         fontSize: wp("5%"),
         fontWeight: "700",
