@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, Button, FlatList } from "react-native";
-import axios from "axios";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-// TYPE DEFINITIONS
+// ------------------------------------------------------------
+// ▶️ TYPE DEFINITIONS
+// ------------------------------------------------------------
+
 interface Address {
     street: string;
     suite: string;
@@ -20,64 +23,121 @@ interface User {
     address: Address;
 }
 
+// ------------------------------------------------------------
+// ▶️ LOCAL DUMMY JSON DATA
+// ------------------------------------------------------------
+
+const DUMMY_USERS: User[] = [
+    {
+        id: 1,
+        name: "Leanne Graham",
+        username: "Bret",
+        email: "leanne@example.com",
+        phone: "123-456-7890",
+        website: "leanne.com",
+        address: {
+            street: "Kulas Light",
+            suite: "Apt. 556",
+            city: "Gwenborough",
+            zipcode: "92998"
+        }
+    },
+    {
+        id: 2,
+        name: "Ervin Howell",
+        username: "Antonette",
+        email: "ervin@example.com",
+        phone: "987-654-3210",
+        website: "ervin.com",
+        address: {
+            street: "Victor Plains",
+            suite: "Suite 879",
+            city: "Wisokyburgh",
+            zipcode: "90566"
+        }
+    },
+    {
+        id: 3,
+        name: "Clementine Bauch",
+        username: "Samantha",
+        email: "clementine@example.com",
+        phone: "555-123-1111",
+        website: "clementine.com",
+        address: {
+            street: "Douglas Extension",
+            suite: "Suite 847",
+            city: "McKenziehaven",
+            zipcode: "59590"
+        }
+    }
+];
+
+// ------------------------------------------------------------
+// ▶️ MAIN COMPONENT
+// ------------------------------------------------------------
+
 const UserListSortFilter: React.FC = () => {
+
+    // List shown to the user
     const [users, setUsers] = useState<User[]>([]);
+
+    // Backup list for filtering
     const [master, setMaster] = useState<User[]>([]);
+
+    // Search keyword
     const [search, setSearch] = useState<string>("");
 
-    // API CALL
-    const fetchUsers = async () => {
-        try {
-            const res = await axios.get<User[]>(
-                "https://jsonplaceholder.typicode.com/users"
-            );
-            setUsers(res.data);
-            setMaster(res.data);
-        } catch (err) {
-            console.log("API Error:", err);
-        }
-    };
-
+    // --------------------------------------------------------
+    // ▶️ Load Dummy Data on First Render
+    // --------------------------------------------------------
     useEffect(() => {
-        fetchUsers();
+        setUsers(DUMMY_USERS);
+        setMaster(DUMMY_USERS);
     }, []);
 
-    // 🔍 Filter by Name
+    // --------------------------------------------------------
+    // ▶️ FILTER (Search by Name)
+    // --------------------------------------------------------
     const handleFilter = (text: string) => {
         setSearch(text);
 
-        const filtered = master.filter((item) =>
+        const filteredList = master.filter((item) =>
             item.name.toLowerCase().includes(text.toLowerCase())
         );
 
-        setUsers(filtered);
+        setUsers(filteredList);
     };
 
-    // 🔼 Sort Ascending
+    // --------------------------------------------------------
+    // ▶️ SORT A → Z
+    // --------------------------------------------------------
     const sortAsc = () => {
-        const sorted = [...users].sort((a, b) =>
-            a.name.localeCompare(b.name)
-        );
+        const sorted = [...users].sort((a, b) => a.name.localeCompare(b.name));
         setUsers(sorted);
     };
 
-    // 🔽 Sort Descending
+    // --------------------------------------------------------
+    // ▶️ SORT Z → A
+    // --------------------------------------------------------
     const sortDesc = () => {
-        const sorted = [...users].sort((a, b) =>
-            b.name.localeCompare(a.name)
-        );
+        const sorted = [...users].sort((a, b) => b.name.localeCompare(a.name));
         setUsers(sorted);
     };
 
+    // --------------------------------------------------------
+    // ▶️ UI
+    // --------------------------------------------------------
     return (
-        <View style={{ padding: 15 }}>
-            {/* SEARCH BOX */}
+        <SafeAreaView style={{ flex: 1, padding: 15 }}>
+
+            {/* SEARCH INPUT */}
             <TextInput
                 value={search}
                 onChangeText={handleFilter}
                 placeholder="Search by name"
                 style={{
                     borderWidth: 1,
+                    borderColor: "#aaa",
                     padding: 10,
                     borderRadius: 6,
                     marginBottom: 10,
@@ -90,7 +150,7 @@ const UserListSortFilter: React.FC = () => {
                 <Button title="Sort Z → A" color="orange" onPress={sortDesc} />
             </View>
 
-            {/* LIST */}
+            {/* USER LIST */}
             <FlatList
                 style={{ marginTop: 15 }}
                 data={users}
@@ -108,10 +168,13 @@ const UserListSortFilter: React.FC = () => {
                             {item.name}
                         </Text>
                         <Text>{item.email}</Text>
+                        <Text style={{ color: "#666" }}>
+                            {item.address.city}
+                        </Text>
                     </View>
                 )}
             />
-        </View>
+        </SafeAreaView>
     );
 };
 

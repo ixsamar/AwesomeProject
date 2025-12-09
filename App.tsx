@@ -17,6 +17,7 @@ import LifecycleExample from './src/screens/Logics/LifecycleExample';
 import UserFormExample from './src/screens/Logics/UserFormExample';
 import UserListWithLoader from './src/screens/Logics/UserListWithLoader';
 import UserListSortFilter from './src/screens/Logics/UserListSortFilter';
+import MiniProject from './src/screens/MiniProject';
 
 
 const App = () => {
@@ -36,8 +37,10 @@ const App = () => {
       {/* Hooks & Logic */}
       {/* <LifecycleExample /> */}
       {/* <UserFormExample /> */}
-      <UserListWithLoader />
+      {/* <UserListWithLoader /> */}
       {/* <UserListSortFilter /> */}
+
+      <MiniProject />
 
 
     </View>
