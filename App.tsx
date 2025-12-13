@@ -19,6 +19,11 @@ import UserListWithLoader from './src/screens/Logics/UserListWithLoader';
 import UserListSortFilter from './src/screens/Logics/UserListSortFilter';
 import MiniProject from './src/screens/MiniProject';
 
+import ImageBackgroundExample from './src/screens/Intermediate/ImageBackgroundExample';
+import KeyboardAvoidingExample from './src/screens/Intermediate/KeyboardAvoidingExample';
+import ModalExample from './src/screens/Intermediate/ModalExample';
+import TouchableExamples from './src/screens/Intermediate/TouchableExamples';
+
 
 const App = () => {
   return (
@@ -40,7 +45,12 @@ const App = () => {
       {/* <UserListWithLoader /> */}
       {/* <UserListSortFilter /> */}
 
-      <MiniProject />
+      {/* <MiniProject /> */}
+
+      {/* <ImageBackgroundExample /> */}
+      {/* <KeyboardAvoidingExample /> */}
+      {/* <ModalExample /> */}
+      <TouchableExamples />
 
 
     </View>
